@@ -1,0 +1,13 @@
+<section id="home">
+	<h1>Battlecruiser</h1>
+	<div id="gameboard">
+	<p>Please choose {{counter}} positions on the board.</p>
+		<table class="table">
+		    <tbody>
+		        <tr ng-repeat="cols in rows">
+		            <td ng-repeat="col in cols" ng-click="positionChooser">{{col}}</td>
+		        </tr>
+		    </tbody>
+		</table>
+	</div>
+</section>
