@@ -4,8 +4,8 @@
 	<p>Please choose {{counter}} positions on the board.</p>
 		<table class="table">
 		    <tbody>
-		        <tr ng-repeat="cols in rows">
-		            <td ng-repeat="col in cols" ng-click="positionChooser">{{col}}</td>
+		        <tr ng-repeat="cols in rows track by $index">
+		            <td ng-repeat="col in cols track by $index" ng-click="positionChooser(col)" ng-class="{chosen:positionsArray.indexOf(col)>-1}">{{col}}</td>
 		        </tr>
 		    </tbody>
 		</table>
