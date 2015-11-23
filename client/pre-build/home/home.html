@@ -1,7 +1,8 @@
 <section id="home">
 	<h1>Battlecruiser</h1>
 	<div id="gameboard">
-	<p>Please choose {{counter}} positions on the board.</p>
+	<p ng-if="positionsArray.length<10">Please choose {{10 - positionsArray.length}} positions on the board.</p> <p>Click again on a selected square to change your mind.</p>
+	<button ng-if="positionsArray.length===10" ng-click="submitPositions()">Click to submit your choices!</button>
 		<table class="table">
 		    <tbody>
 		        <tr ng-repeat="cols in rows track by $index">

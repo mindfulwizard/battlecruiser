@@ -12,16 +12,19 @@ app.controller('HomeController', function($scope, $http) {
 	};
 
 	//allow user to choose positions
-	$scope.counter = 10;
 	$scope.positionsArray = [];
 	$scope.positionChooser = function(col) {
-		if($scope.positionsArray.indexOf(col) === -1) {
+		if($scope.positionsArray.indexOf(col) === -1 && $scope.positionsArray.length < 10) {
 			$scope.positionsArray.push(col);
-		} else {
+		} else if($scope.positionsArray.indexOf(col) > -1) {
 			$scope.positionsArray.splice($scope.positionsArray.indexOf(col), 1);
 		};
-		console.log($scope.positionsArray);
 	};
+
+	$scope.submitPositions = function() {
+		console.log('submitted');
+	}
+
 
 
 });
