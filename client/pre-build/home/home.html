@@ -1,14 +1,8 @@
 <section id="home">
 	<h1>Battlecruiser</h1>
-	<div id="gameboard">
-	<p ng-if="positionsArray.length<10">Please choose {{10 - positionsArray.length}} positions on the board.</p> <p>Click again on a selected square to change your mind.</p>
-	<button ng-if="positionsArray.length===10" ng-click="submitPositions()">Click to submit your choices!</button>
-		<table class="table">
-		    <tbody>
-		        <tr ng-repeat="cols in rows track by $index">
-		            <td ng-repeat="col in cols track by $index" ng-click="positionChooser(col)" ng-class="{chosen:positionsArray.indexOf(col)>-1}">{{col}}</td>
-		        </tr>
-		    </tbody>
-		</table>
+	<div id="instructions">
+		<p ng-if="positionsArray.length<10">Please choose {{10 - positionsArray.length}} positions on the board.</p><p>Click again on a selected square to change your mind.</p>
+		<button ng-if="positionsArray.length===10 && !boardSet" ng-click="submitPositions()">Click to submit your choices!</button>
 	</div>
+	<gameboard></gameboard>
 </section>
