@@ -1,0 +1,9 @@
+<div>
+	<table class="table">
+	    <tbody>
+	        <tr ng-repeat="cols in rows track by $index">
+	            <td ng-repeat="col in cols track by $index" ng-click="positionChooser(col)" ng-class="{chosen:positionsArray.indexOf(col)>-1,picked:finder(computerPositions, col)}">{{col}}</td>
+	        </tr>
+	    </tbody>
+	</table>
+</div>

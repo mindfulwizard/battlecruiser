@@ -2,26 +2,4 @@
 	h1 {
 		text-align: center;
 	}
-
-	#content {
-		margin: 0 auto;
-		position: absolute;
-	}
-
-	#gameboard, .table {
-		margin: auto auto auto auto;
-		width: 70vh;
-    	height: 70vh;
-	}
-
-
-	td {
-		border: 1px solid black;
-		cursor: pointer;
-	}
-
-	.chosen {
-		background: #7e7e7e;
-	}
-
 }
