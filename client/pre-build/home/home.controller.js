@@ -1,4 +1,4 @@
-app.controller('HomeController', function($scope) {
+app.controller('HomeController', function($scope, boardFactory) {
 	$scope.createBoard = function() {	
 		$scope.rows = [];
 		var maxRows = 5;
@@ -17,6 +17,7 @@ app.controller('HomeController', function($scope) {
 		if(!$scope.boardSet && col[1] < 5) {
 			if($scope.positionsArray.indexOf(col) === -1 && $scope.positionsArray.length < 10) {
 				$scope.positionsArray.push(col);
+				boardFactory.sendPosition(col);
 			} else if($scope.positionsArray.indexOf(col) > -1) {
 				$scope.positionsArray.splice($scope.positionsArray.indexOf(col), 1);
 			};
