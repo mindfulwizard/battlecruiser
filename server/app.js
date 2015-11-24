@@ -40,20 +40,61 @@ app.use(function (req, res, next) {
 
 });
 
+var positionsArray = [];
+var computerPositions = [];
+var missed = [];
+var hit = [];
+
+function posFinder(array, item) {
+    for (var i = 0; i < array.length; i++) {
+        if (array[i][0] === item[0] && array[i][1] == item[1]) {
+            return i;
+        }
+    }
+  return -1;
+}
+
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max-min+1) + min);
+};
+
+app.put('/position', function(req, res) {
+  //player side
+  if(req.body.position[1] < 5) {
+      if(posFinder(positionsArray, req.body.position) === -1) {
+        positionsArray.push(req.body.position);
+      } else {
+        positionsArray.splice(posFinder(positionsArray, req.body.position), 1)
+      }
+  }    
+  //computer side
+  if(req.body.position[1] > 5) {
+    if(posFinder(computerPositions, req.body.position) === -1) {
+      //hit
+    } else {
+      //miss
+    }
+  }
+  res.json(positionsArray);
+});
+
+app.get('/start', function(req, res) {
+  while(computerPositions.length < 10) {
+    var randomPos = Array(randomInt(0,4), randomInt(5,9));
+    computerPositions.push(randomPos);
+  }
+  res.json(computerPositions);
+});
+
+
+
+
 // Routes
 //// Index/Home
 app.use('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, './index.html'));
 });
 
-
-var positionsArray = [];
-
-app.post('/position', function(req, res) {
-  positionsArray.push(req.body);
-  console.log(req.body);
-  res.send('POST test');
-});
 
 
 // Errors
