@@ -40,10 +40,22 @@ app.use(function (req, res, next) {
 
 });
 
-var positionsArray = [];
-var computerPositions = [];
-var missed = [];
-var hit = [];
+
+
+var userPositions = [];
+var userIsMissed = [];
+var userIsHit = [];
+var cpuPositions = [];
+var cpuIsMissed = [];
+var cputIsHit = [];
+var arrayCollection: {
+  'userPositions': userPositions;
+  'userIsMissed': userIsMissed;
+  'userIsHit': userIsHit;
+  'cpuPositions': cpuPositions;
+  'cpuIsMissed': cpuIsMissed;
+  'cputIsHit': cputIsHit;
+  }
 
 function posFinder(array, item) {
     for (var i = 0; i < array.length; i++) {
@@ -59,35 +71,52 @@ function randomInt(min, max) {
 };
 
 app.put('/position', function(req, res) {
-  //player side
-  if(req.body.position[1] < 5) {
-      if(posFinder(positionsArray, req.body.position) === -1) {
-        positionsArray.push(req.body.position);
+  //setup
+  console.log(req.body)
+  var coordinates = req.body.position;
+      if(posFinder(userPositions, coordinates) === -1) {
+        userPositions.push(coordinates);
       } else {
-        positionsArray.splice(posFinder(positionsArray, req.body.position), 1)
+        userPositions.splice(posFinder(userPositions, coordinates), 1)
       }
-  }    
-  //computer side
-  if(req.body.position[1] > 5) {
-    if(posFinder(computerPositions, req.body.position) === -1) {
-      //hit
-    } else {
-      //miss
-    }
-  }
-  res.json(positionsArray);
+  //res.json(arrayCollection);
+  //below working
+  console.log(userPositions)
+  res.json(userPositions)
+
 });
+
+app.post('/position', function(req, res) {
+  console.log(req.body)
+    if(posFinder(cpuPositions, coordinates) === -1) {
+      cputIsHit.push(coordinates);
+    } else {
+      cpuIsMissed.push(coordinates);
+    }
+    var randomPos = Array(randomInt(0,4), randomInt(0,4));
+    if(find(userPositions, randomPos) === -1) {
+        cpuIsMissed.push(randomPos);
+    } else {
+        cputIsHit.push(randomPos);
+    }
+  //res.json(arrayCollection);
+  console.log(cputIsHit, cpuIsMissed)
+  res.json({cputIsHit: cputIsHit, cpuIsMissed: cpuIsMissed});
+});    
+
+  
 
 app.get('/start', function(req, res) {
-  while(computerPositions.length < 10) {
+  //setup
+  while(cpuPositions.length < 10) {
     var randomPos = Array(randomInt(0,4), randomInt(5,9));
-    computerPositions.push(randomPos);
+    cpuPositions.push(randomPos);
   }
-  res.json(computerPositions);
+  res.json(cpuPositions);
 });
 
 
-
+//app.use('/api', require('./api/routes'));
 
 // Routes
 //// Index/Home
@@ -95,6 +124,9 @@ app.use('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, './index.html'));
 });
 
+// app.get('/*', function(req, res, next) {
+//     res.sendFile(path.join(__dirname, './index.html'));
+// });
 
 
 // Errors

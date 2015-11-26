@@ -12,17 +12,20 @@ app.controller('HomeController', function($scope, boardFactory) {
 	}();
 
 	$scope.positionsArray = [];
+	$scope.strikes = [];
 	$scope.missed = [];
 	$scope.hit = [];
 	$scope.boardSet = false;
 
 	$scope.positionChooser = function(col) {
-		if(!$scope.boardSet && col[1] < 5 && $scope.positionsArray.length < 10) {
+		if(col[1] < 5 && $scope.positionsArray.length < 10) {
 			boardFactory.sendPosition(col)
-			.then(function(array) {
-				$scope.positionsArray = array;
+			.then(function(response) {
+				//$scope.positionsArray = arrayCollections.userPositions;
+				console.log(response)
+				$scope.positionsArray = response;
 			});
-		}
+		}	
 	};
 
 	$scope.submitPositions = function() {
@@ -33,23 +36,26 @@ app.controller('HomeController', function($scope, boardFactory) {
 		})
 	};
 
-	$scope.posFinder = function(array, item) {
-	    for (var i = 0; i < array.length; i++) {
-	        if (array[i][0] === item[0] && array[i][1] == item[1]) {
+	$scope.posFinder = function(item) {
+		//var array = $scope.positionsArray;
+	    for (var i = 0; i < $scope.positionsArray.length; i++) {
+	        if ($scope.positionsArray[i][0] === item[0] && $scope.positionsArray[i][1] == item[1]) {
 	            return i;
 	        }
 	    }
 	    return -1;
-	}
+	};
 
 	$scope.strikeChooser = function(col) {
-		if($scope.boardSet && col[1] > 5) {
-			boardFactory.sendPosition(col)
-			.then(function(array) {
-				$scope.positionsArray = array;
+		//test - no onclick even
+
+		if(col[1] > 5 && $scope.boardSet) {
+			$scope.strikes.push(col)
+			boardFactory.sendStrike(col)
+			.then(function(arrayCollections) {
+				$scope.missed = arrayCollections.userMissed;
+				$scope.hit = arrayCollections.userHit;
 			});
 		}
 	};
-
-
 });

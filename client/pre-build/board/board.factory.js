@@ -6,6 +6,12 @@ app.factory('boardFactory', function($http){
 				return res.data;
 			});
 		},
+		sendStrike: function(position) {
+			return $http.post('/position', {position: position})
+			.then(function(res) {
+				return res.data;
+			});
+		},
 		start: function() {
 			return $http.get('/start')
 			.then(function(res) {
