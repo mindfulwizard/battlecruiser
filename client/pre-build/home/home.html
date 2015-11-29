@@ -1,9 +1,9 @@
 <section id="home">
 	<h1>Battlecruiser</h1>
-	<div id="instructions1" ng-if="positionsArray.length<10">
-		<p>Please choose {{10 - positionsArray.length}} positions on the board.</p><p>Click again on a selected square to change your mind.</p>
+	<div id="instructions1" ng-if="userPositions.length<10">
+		<p>Please choose {{10 - userPositions.length}} positions on the board.</p><p>Click again on a selected square to change your mind.</p>
 	</div>
-		<button ng-click="submitPositions()">Click to submit your choices!</button>
+		<button ng-click="submitPositions()" ng-if="userPositions.length===10 && !boardSet">Click to submit your choices!</button>
 	<div id="instructions2" ng-if="boardSet">
 		<p>Click on one of your opponent's positions to strike!</p>
 	</div>
