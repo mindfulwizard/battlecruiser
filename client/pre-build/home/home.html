@@ -3,15 +3,21 @@
 	<div id="instructions1" ng-if="userPositions.length<10">
 		<p>Please choose {{10 - userPositions.length}} positions on the board.</p><p>Click again on a selected square to change your mind.</p>
 	</div>
-		<button ng-click="submitPositions()" ng-if="userPositions.length===10 && !boardSet">Click to submit your choices!</button>
+		<button ng-click="submitPositions()" ng-if="userPositions.length===10 && !boardSet && !waiting1 && !waiting2">Click to submit your choices!</button>
 	<div id="instructions2" ng-show="boardSet && !waiting1 && !waiting2">
 		<p>Click on one of your opponent's positions to strike!</p>
 	</div>
 	<div id="instructions3" ng-show="waiting1">
-		<p>Waiting for results of your attack...</p>
+		<p>Attacking target...</p>
 	</div>
 	<div id="instructions4" ng-show="waiting2">
-		<p>Waiting for results of response attack</p>
+		<p>Bracing for response attack...</p>
+	</div>
+	<div id="instructions5" ng-if="winner">
+		<p>You win!</p>
+	</div>
+	<div id="instructions6" ng-if="loser">
+		<p>You lose.</p>
 	</div>
 	<gameboard></gameboard>
 </section>

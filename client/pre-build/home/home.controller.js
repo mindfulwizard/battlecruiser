@@ -10,7 +10,6 @@ app.controller('HomeController', function($scope, $timeout, boardFactory) {
 		  	$scope.rows[i][j] = Array(i,j);
 		  };
 		};
-
 	}();
 
 	$scope.userPositions = [];
@@ -26,6 +25,8 @@ app.controller('HomeController', function($scope, $timeout, boardFactory) {
 	$scope.boardSet = false;
 	$scope.waiting1 = false;
 	$scope.waiting2 = false;
+	$scope.winner = false;
+	$scope.loser = false;
 		
 	$scope.posFinder = function(item, array) {
 		if(typeof array === 'undefined') {
@@ -46,7 +47,6 @@ app.controller('HomeController', function($scope, $timeout, boardFactory) {
 			boardFactory.sendPosition(col)
 			.then(function(response) {
 				//$scope.userPositions = arrayCollections.userPositions;
-				console.log('userPositions:', response.userPositions)
 				$scope.userPositions = response.userPositions;
 			});
 		}
@@ -55,9 +55,22 @@ app.controller('HomeController', function($scope, $timeout, boardFactory) {
 		if(col[1] >= 5 && $scope.boardSet && $scope.posFinder(col, $scope.missed) === -1 && $scope.posFinder(col, $scope.hit) === -1) {
 			//turn waiting for strike on
 			$scope.waiting1 = true;
+			//prevent repeat clicks before artificially fake response
+			$scope.boardSet = false;
 			boardFactory.sendStrike(col)
 			.then(function(response) {
 				console.log('strike response', response)
+				if(response.winner) {
+					$scope.cpuIsHit = response.cpuIsHit;
+					$scope.winner = true;
+					return;
+				}
+				if(response.loser) {
+					$scope.userIsHit = response.userIsHit;
+					$scope.loser = true;
+					return;
+				}
+
 				$timeout(function() {
 					console.log('ready1!');
 					//turn waiting for strike off
@@ -65,16 +78,17 @@ app.controller('HomeController', function($scope, $timeout, boardFactory) {
 					//turn waiting for response attack on
 					$scope.waiting2 = true;
 					//show results of strike
-					$scope.userIsMissed = response.userIsMissed;
-					$scope.userIsHit = response.userIsHit;
-				   }, 3000);
-				$timeout(function() {
-					console.log('ready2!');
-					//turn waiting for response attack off
-					$scope.waiting2 = false;
-					//show results of attack strike
 					$scope.cpuIsMissed = response.cpuIsMissed;
-					$scope.userIsHit = response.userIsHit;
+					$scope.cpuIsHit = response.cpuIsHit;
+					$timeout(function() {
+						console.log('ready2!');
+						//turn waiting for response attack off
+						$scope.waiting2 = false;
+						//show results of response attack
+						$scope.userIsMissed = response.userIsMissed;
+						$scope.userIsHit = response.userIsHit;
+						$scope.boardSet = true;
+					   }, 3000);
 				   }, 3000);
 			});
 		}
@@ -84,7 +98,7 @@ app.controller('HomeController', function($scope, $timeout, boardFactory) {
 		$scope.boardSet = true;
 		boardFactory.start()
 		.then(function(response) {
-			console.log('cpuPositions:', response.cpuPositions)
+			//???
 		});
 	}
 });

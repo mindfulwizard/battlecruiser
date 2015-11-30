@@ -63,7 +63,8 @@ router.post('/position', function(req, res) {
 	
 	//check if final strike
 	if(cpuIsHit.length === 10) {
-
+		res.json({winner:true, cpuIsHit: cpuIsHit});
+		return;
 	}
 
 	//return strike
@@ -71,6 +72,11 @@ router.post('/position', function(req, res) {
 	console.log('attack user:', randomPos)
 
 	//check if final attack
+	if(userIsHit.length === 10) {
+		res.json({loser:true, userIsHit: userIsHit});
+		return;
+	}
+
 
 	if(posFinder(userPositions, randomPos) === -1) {
 		userIsMissed.push(randomPos);
