@@ -1,4 +1,4 @@
-app.controller('HomeController', function($scope, boardFactory) {
+app.controller('HomeController', function($scope, $timeout, boardFactory) {
 
 	$scope.createBoard = function() {
 		$scope.rows = [];
@@ -11,14 +11,22 @@ app.controller('HomeController', function($scope, boardFactory) {
 		  };
 		};
 
+	}();
+
 	$scope.userPositions = [];
 	$scope.cpuPositions = [];
 	$scope.missed = [];
 	$scope.hit = [];
-	$scope.boardSet = false;
-		
-	}();
 
+	$scope.userIsMissed = [];
+	$scope.userIsHit = [];
+	$scope.cpuIsMissed = [];
+	$scope.cpuIsHit = [];
+
+	$scope.boardSet = false;
+	$scope.waiting1 = false;
+	$scope.waiting2 = false;
+		
 	$scope.posFinder = function(item, array) {
 		if(typeof array === 'undefined') {
 			console.log('go away')
@@ -45,11 +53,29 @@ app.controller('HomeController', function($scope, boardFactory) {
 
 		//strike
 		if(col[1] >= 5 && $scope.boardSet && $scope.posFinder(col, $scope.missed) === -1 && $scope.posFinder(col, $scope.hit) === -1) {
+			//turn waiting for strike on
+			$scope.waiting1 = true;
 			boardFactory.sendStrike(col)
 			.then(function(response) {
-				console.log('hit and miss obj:', response)
-				$scope.hit = response.hit;
-				$scope.missed = response.missed;
+				console.log('strike response', response)
+				$timeout(function() {
+					console.log('ready1!');
+					//turn waiting for strike off
+					$scope.waiting1 = false;
+					//turn waiting for response attack on
+					$scope.waiting2 = true;
+					//show results of strike
+					$scope.userIsMissed = response.userIsMissed;
+					$scope.userIsHit = response.userIsHit;
+				   }, 3000);
+				$timeout(function() {
+					console.log('ready2!');
+					//turn waiting for response attack off
+					$scope.waiting2 = false;
+					//show results of attack strike
+					$scope.cpuIsMissed = response.cpuIsMissed;
+					$scope.userIsHit = response.userIsHit;
+				   }, 3000);
 			});
 		}
 	};

@@ -59,8 +59,12 @@ router.post('/position', function(req, res) {
 	} else {
 		cpuIsHit.push(coordinates);
 	}
+
 	
 	//check if final strike
+	if(cpuIsHit.length === 10) {
+
+	}
 
 	//return strike
 	var randomPos = striker();
@@ -73,8 +77,9 @@ router.post('/position', function(req, res) {
 	} else {
 		userIsHit.push(randomPos);
 	}
+	res.json({userIsHit: userIsHit, userIsMissed: userIsMissed, cpuIsHit: cpuIsHit, cpuIsMissed:cpuIsMissed});
 	//res.json(arrayCollection);
-	res.json({hit:userIsHit.concat(cpuIsHit), missed:userIsMissed.concat(cpuIsMissed)});
+	//res.json({hit:userIsHit.concat(cpuIsHit), missed:userIsMissed.concat(cpuIsMissed)});
 });    
 
 
