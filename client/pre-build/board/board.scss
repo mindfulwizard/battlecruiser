@@ -1,28 +1,68 @@
-#content {
+/*#content {
 		margin: 0 auto;
 		position: absolute;
 	}
 
-	#user, .table {
+	.table {
 		margin: auto auto auto auto;
 		width: 70vh;
     	height: 70vh;
 	}
 
+	#board{
+		margin: auto auto auto auto;
+		width: 70vh;
+    	height: 70vh;
+	}*/
+	table {
+		width: 100%;
+	}
 
 	td {
 		border: 1px solid black;
 		cursor: pointer;
+		width: 9%;
+  		position: relative;
+
+	  
+	    background-position:center center;
+	    background-repeat:no-repeat;
+	    background-size:cover;
+	}
+
+	.wall {
+		/*border-right: 10px solid black;*/
+		border-top: none;
+		border-right: none;
+		border-bottom: none;
+		content: none;
+	}
+
+	td:after{
+	    content: '';
+	    display: block;
+	    margin-top: 100%;
+	}
+
+	td .content {
+	    position: absolute;
+	    top: 0;
+	    bottom: 0;
+	    left: 0;
+	    right: 0;
 	}
 
 	.position {
 		background-color: #7e7e7e;
+		background-image: url('ship.jpg');
 	}
 
 	.red {
-		background-color: red;
+		/*background-color: red;*/
+		background-image: url('burning.jpg');
 	}
 
 	.blue{
-		background-color: blue;
+		/*background-color: blue;*/
+		background-image: url('splash.jpg');
 	}

@@ -1,9 +1,8 @@
-<div>
-	<table class="table">
-	    <tbody>
-	        <tr ng-repeat="cols in rows track by $index">
-	            <td ng-repeat="col in cols track by $index" ng-click="positionChooser(col)" ng-class="{position:posFinder(col, userPositions)>-1, red:posFinder(col, userIsHit)>-1 || posFinder(col, cpuIsHit)>-1, blue:posFinder(col, userIsMissed)>-1 || posFinder(col, cpuIsMissed)>-1}">{{col}}</td>
-	        </tr>
-	    </tbody>
+<div id="board">
+	<table>
+        <tr ng-repeat="cols in rows track by $index">
+            <td ng-repeat="col in cols track by $index" ng-click="positionChooser(col)" ng-class="{position:posFinder(col, userPositions)>-1, red:posFinder(col, userIsHit)>-1 || posFinder(col, cpuIsHit)>-1, blue:posFinder(col, userIsMissed)>-1 || posFinder(col, cpuIsMissed)>-1, wall:posFinder(col, borders)>-1}"><div class="content">{{col}}</div></td>
+        </tr>
 	</table>
 </div>
+

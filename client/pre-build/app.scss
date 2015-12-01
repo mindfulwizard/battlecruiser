@@ -10,6 +10,14 @@
   }
 }
 
+body { 
+  background: url('ocean2.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 // Add your fractal Sass files below!
 @import 'navbar/navbar';
 @import 'home/home';

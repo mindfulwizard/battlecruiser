@@ -3,7 +3,7 @@ app.controller('HomeController', function($scope, $timeout, boardFactory) {
 	$scope.createBoard = function() {
 		$scope.rows = [];
 		var maxRows = 5;
-		var maxCols = 10;
+		var maxCols = 11;
 		for (var i = 0; i < maxRows; i++){
 		  $scope.rows.push([]);
 		  for (var j =0; j < maxCols; j++){
@@ -11,6 +11,7 @@ app.controller('HomeController', function($scope, $timeout, boardFactory) {
 		  };
 		};
 	}();
+	$scope.borders = [[0,5],[1,5],[2,5],[3,5],[4,5]];
 
 	$scope.userPositions = [];
 	$scope.cpuPositions = [];
@@ -52,7 +53,7 @@ app.controller('HomeController', function($scope, $timeout, boardFactory) {
 		}
 
 		//strike
-		if(col[1] >= 5 && $scope.boardSet && $scope.posFinder(col, $scope.missed) === -1 && $scope.posFinder(col, $scope.hit) === -1) {
+		if(col[1] >= 6 && $scope.boardSet && $scope.posFinder(col, $scope.missed) === -1 && $scope.posFinder(col, $scope.hit) === -1) {
 			//turn waiting for strike on
 			$scope.waiting1 = true;
 			//prevent repeat clicks before artificially fake response
