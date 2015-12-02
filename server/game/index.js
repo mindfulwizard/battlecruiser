@@ -2,7 +2,7 @@ var _ = require('lodash');
 
 var EMPTY = 0, SHIP = 1, HIT = 2, MISS = 3;
 
-var GameState = function() {
+function GameState() {
 	this.playerArr = this.generateBoard();
 	this.cpuArr = this.generateBoard();
 	this.status = 'Setup';
@@ -10,24 +10,26 @@ var GameState = function() {
 
 _.extend(GameState.prototype, {
 	generateBoard: function() {
-		console.log('this?', this);
 		return _.range(5).map(function () {
         	return _.range(0, 5, 0);
     	});
 	},
 	addPlayerPositions: function(positionsArr) {
-		_.forEach(positionsArr, function(i) {
-			this.playerArr[positionsArr[i].x][positionsArr[i].y] = SHIP;
+		var self = this;
+		_.forEach(positionsArr, function(position) {
+			self.playerArr[position.x][position.y] = SHIP;
 		});
+		return this;
 	},
 	generateCpuShips: function() {
+		var self = this;
 		_.times(10, function randomPosition(){
-			var x = _.random(0, 5);
-			var y = _.random(0, 5);
-			if(this.cpuArr[x][y] === SHIP) {
+			var x = _.random(0, 4);
+			var y = _.random(0, 4);
+			if(self.cpuArr[x][y] === SHIP) {
 				return randomPosition();
 			}
-			this.cpuArr[x][y] = SHIP;
+			self.cpuArr[x][y] = SHIP;
 		});
 	},
 	startGame: function() {
@@ -36,15 +38,15 @@ _.extend(GameState.prototype, {
 		this.status = 'Playing';
 	},
 	attack: function(array, position) {
-		if(!this[array][position.x][position.y]) {
-			this[array][position.x][position.y] = MISS;
+		if(!array[position.x][position.y]) {
+			array[position.x][position.y] = MISS;
 		} else {
-			this.cpuArr[position.x][position.y] = HIT;
+			array[position.x][position.y] = HIT;
 		}
 	},
 	checkWin: function(array) {
 		//refactor?
-		var counter;
+		var counter = 0;
 		_.forEach(array, function(innerArray) {
 			_.forEach(innerArray, function(element) {
 				if(element === HIT) {
@@ -58,24 +60,29 @@ _.extend(GameState.prototype, {
 		return false;
 	},
 	playerMove: function(position) {
-		this.attack(cpuArr, position);
-		if(checkWin(cpuArr)) {
+		this.attack(this.cpuArr, position);
+		if(this.checkWin(this.cpuArr)) {
 			this.status = 'Player won';
+			this.currentPlayer = null;
 		};
+		this.currentPlayer = 'CPU';
 	},
 	cpuMove: function() {
+		var self = this;
 		function randomPosition() {
-			var x = _.random(0, 5);
-			var y = _.random(0, 5);
-			if(this.playerArr[x][y] === HIT || this.playerArr[x][y] === MISS) {
+			var x = _.random(0, 4);
+			var y = _.random(0, 4);
+			if(self.playerArr[x][y] === HIT || self.playerArr[x][y] === MISS) {
 				return randomPosition();
 			}
 			return {x:x, y:y};
 		}
-		this.attack(playerArr, randomPosition());
-		if(checkWin(playerArr)) {
+		this.attack(this.playerArr, randomPosition());
+		if(this.checkWin(this.playerArr)) {
 			this.status = 'CPU won';
+			this.currentPlayer = null;
 		};
+		this.currentPlayer = 'Person';
 	}
 });
 module.exports = GameState;
