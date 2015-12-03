@@ -9,7 +9,7 @@ router.post('/game', function(req, res) {
 });
 
 router.put('/setup', function(req, res) {
-	game.addPlayerPositions(req.body.positionsArr).startGame();
+	game.addPlayerPositions(req.body.positionsArray).startGame();
 	res.json({game});
 });
 

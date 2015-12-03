@@ -1,41 +1,30 @@
-/*#content {
-		margin: 0 auto;
-		position: absolute;
-	}
-
-	.table {
-		margin: auto auto auto auto;
-		width: 70vh;
-    	height: 70vh;
-	}
-
-	#board{
-		margin: auto auto auto auto;
-		width: 70vh;
-    	height: 70vh;
-	}*/
-	table {
+	#board {
+		overflow: hidden;
 		width: 100%;
+	}
+
+	table {
+		width: 45%;
+	}
+
+	#player {
+		width: 45%;
+		float: left;
+	}
+
+	#cpu {
+		width: 45%;
+		float: right;
 	}
 
 	td {
 		border: 1px solid black;
 		cursor: pointer;
-		width: 9%;
+		width: 7%;
   		position: relative;
-
-	  
 	    background-position:center center;
 	    background-repeat:no-repeat;
 	    background-size:cover;
-	}
-
-	.wall {
-		/*border-right: 10px solid black;*/
-		border-top: none;
-		border-right: none;
-		border-bottom: none;
-		content: none;
 	}
 
 	td:after{
@@ -52,17 +41,14 @@
 	    right: 0;
 	}
 
-	.position {
-		background-color: #7e7e7e;
+	.placed {
 		background-image: url('ship.jpg');
 	}
 
-	.red {
-		/*background-color: red;*/
+	.hit {
 		background-image: url('burning.jpg');
 	}
 
-	.blue{
-		/*background-color: blue;*/
+	.miss{
 		background-image: url('splash.jpg');
 	}

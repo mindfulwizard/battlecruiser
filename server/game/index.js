@@ -5,7 +5,7 @@ var EMPTY = 0, SHIP = 1, HIT = 2, MISS = 3;
 function GameState() {
 	this.playerArr = this.generateBoard();
 	this.cpuArr = this.generateBoard();
-	this.status = 'Setup';
+	this.status = 'setup';
 };
 
 _.extend(GameState.prototype, {
@@ -14,9 +14,9 @@ _.extend(GameState.prototype, {
         	return _.range(0, 5, 0);
     	});
 	},
-	addPlayerPositions: function(positionsArr) {
+	addPlayerPositions: function(positionsArray) {
 		var self = this;
-		_.forEach(positionsArr, function(position) {
+		_.forEach(positionsArray, function(position) {
 			self.playerArr[position.x][position.y] = SHIP;
 		});
 		return this;
@@ -34,8 +34,8 @@ _.extend(GameState.prototype, {
 	},
 	startGame: function() {
 		this.generateCpuShips();
-		this.currentPlayer = 'Person';
-		this.status = 'Playing';
+		this.currentPlayer = 'person';
+		this.status = 'playing';
 	},
 	attack: function(array, position) {
 		if(!array[position.x][position.y]) {
@@ -62,7 +62,7 @@ _.extend(GameState.prototype, {
 	playerMove: function(position) {
 		this.attack(this.cpuArr, position);
 		if(this.checkWin(this.cpuArr)) {
-			this.status = 'Player won';
+			this.status = 'player won';
 			this.currentPlayer = null;
 		};
 		this.currentPlayer = 'CPU';
@@ -82,7 +82,7 @@ _.extend(GameState.prototype, {
 			this.status = 'CPU won';
 			this.currentPlayer = null;
 		};
-		this.currentPlayer = 'Person';
+		this.currentPlayer = 'person';
 	}
 });
 module.exports = GameState;

@@ -1,22 +1,34 @@
 app.factory('boardFactory', function($http){
 	return {
-		sendPosition: function(position) {
-			return $http.put('/api/position', {position: position})
+		createGame: function() {
+			return $http.post('/api/game')
 			.then(function(res) {
 				return res.data;
 			});
 		},
-		sendStrike: function(position) {
-			return $http.post('/api/position', {position: position})
+		playerSetup: function(positionsArray) {
+			return $http.put('/api/setup', {positionsArray: positionsArray})
 			.then(function(res) {
 				return res.data;
 			});
 		},
-		start: function() {
-			return $http.get('/api/start')
+		playerMove: function(position) {
+			return $http.put('/api/player', {position: position})
 			.then(function(res) {
 				return res.data;
 			});
-		}
+		},
+		getCpuMove: function() {
+			return $http.get('/api/cpu')
+			.then(function(res) {
+				return res.data;
+			});
+		},
+		deleteGame: function() {
+			return $http.delete('/api/game')
+			.then(function(res) {
+				return res.data;
+			});
+		},
 	}
 });

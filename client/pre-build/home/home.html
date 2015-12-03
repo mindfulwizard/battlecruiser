@@ -1,13 +1,14 @@
 <section id="home">
 	<h1>Battlecruiser</h1>
 	<div id="instructionbox">
-		<div id="instructions1" ng-if="userPositions.length<10">
-			<p>Please choose {{10 - userPositions.length}} positions on the board.</p><p>Click again on a selected square to change your mind.</p>
+		<button ng-click="createBoards()" ng-if="positionsArray.length<10">Click to start new game</button>
+		<div id="instructions1" ng-if="positionsArray.length<10">
+			<p>Please choose {{10 - (positionsArray.length)}} positions on the board.</p><p>Click again on a selected square to change your mind.</p>
 		</div>
 		<div>
-			<button id="button" ng-click="submitPositions()" ng-if="userPositions.length===10 && !boardSet && !waiting1 && !waiting2">Click to submit your choices!</button>
+			<button id="button" ng-click="submitPositions()" ng-if="positionsArray.length===10 && game.status==='setup'">Click to submit your choices!</button>
 		</div>
-		<div id="instructions2" ng-show="boardSet && !waiting1 && !waiting2">
+		<div id="instructions2" ng-show="game.currentPlayer==='person'">
 			<p>Click on one of your opponent's positions to strike!</p>
 		</div>
 		<div id="instructions3" ng-show="waiting1">
