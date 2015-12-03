@@ -1,21 +1,12 @@
 <div id="board">
 	<table id="player">
         <tr ng-repeat="cols in game.playerArr track by $index">
-            <td ng-repeat="col in cols track by $index" ng-click="selectPosition($parent.$index, $index)" ng-class="{placed:col===1 || finderFunc(positionsArray, $parent.$index, $index)>-1}"><div class="content">{{col}}</div></td>
+            <td ng-repeat="col in cols track by $index" ng-click="selectPosition($parent.$index, $index)" ng-class="{hit:col===2, miss:col===3, placed:col===1 || finderFunc(positionsArray, $parent.$index, $index)>-1}"><div class="content"></div></td>
         </tr>
 	</table>
 	<table id="cpu">
         <tr ng-repeat="cols in game.cpuArr track by $index">
-            <td ng-repeat="col in cols track by $index" ng-click="attackPosition($parent.$index, $index)"><div class="content">{{col}}</div></td>
+            <td ng-repeat="col in cols track by $index" ng-click="attackPosition(col, $parent.$index, $index)" ng-class="{hit:col===2, miss:col===3}"><div class="content"></div></td>
         </tr>
-	</table>	
+	</table>
 </div>
-
-
-
-<!-- 
- -->
-
-<!--  || finderFunc(positionsArray, $parent.$index, $index) -->
-<!-- 
-ng-class="{placed:col===1}" -->
