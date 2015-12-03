@@ -25,7 +25,7 @@ router.get('/cpu', function(req, res) {
 
 router.delete('/game', function(req, res) {
 	game = null;
-	res.sendStatus(200);
+	res.json({game});
 });
 
 router.use(function(req, res) {

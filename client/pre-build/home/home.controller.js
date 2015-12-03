@@ -1,11 +1,11 @@
 app.controller('HomeController', function($scope, boardFactory) {
-	$scope.game;
-	$scope.positionsArray = [];
-
+	//$scope.game;
+	
 	$scope.createBoards = function() {
 		boardFactory.createGame()
 		.then(function(response) {
 			$scope.game = response.game;
+			$scope.positionsArray = [];
 		})
 	}
 
@@ -14,14 +14,13 @@ app.controller('HomeController', function($scope, boardFactory) {
 	}
 
 	$scope.selectPosition = function(x, y) {
-		//check status in ifs
 		var index = $scope.finderFunc($scope.positionsArray, x, y);
 		//undo position selection if previously selected
-		if(index>-1) {
+		if(index>-1 && $scope.game.status === 'setup') {
 			return $scope.positionsArray.splice(index, 1);
 		}
 
-		if($scope.positionsArray.length < 10) {
+		if($scope.positionsArray && $scope.positionsArray.length < 10 && $scope.game.status === 'setup') {
 			$scope.positionsArray.push({'x': x, 'y': y});
 		}
 	}
@@ -34,9 +33,9 @@ app.controller('HomeController', function($scope, boardFactory) {
 		})
 	}
 
-	$scope.attackPosition = function(status, x, y) {
+	$scope.attackCPU = function(status, x, y) {
 		//prevent selecting previously attacked positions
-		if(status === 0 || status === 1){
+		if($scope.game.currentPlayer === 'person' && (status === 0 || status === 1)){
 			boardFactory.playerMove({'x': x, 'y': y})
 			.then(function(response) {
 				$scope.game = response.game;
@@ -44,7 +43,20 @@ app.controller('HomeController', function($scope, boardFactory) {
 		}
 	}
 
+	$scope.allowAttack = function() {
+		boardFactory.getCpuMove()
+		.then(function(response) {
+			$scope.game = response.game;
+		})
+	}
 
+	$scope.deleteGame = function() {
+		boardFactory.deleteGame()
+		.then(function(response) {
+			$scope.game = response.game;
+			$scope.positionsArray = [];
+		})
+	}
 });
 
 	

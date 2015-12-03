@@ -1,28 +1,26 @@
 <section id="home">
 	<h1>Battlecruiser</h1>
 	<div id="instructionbox">
-		<button ng-click="createBoards()" ng-if="positionsArray.length<10">Click to start new game</button>
-		<div id="instructions1" ng-if="positionsArray.length<10">
+		<button ng-click="createBoards()" ng-show="!game">Click to start new game</button>
+		<div id="instructions1" ng-show="positionsArray.length<10 && game">
 			<p>Please choose {{10 - (positionsArray.length)}} positions on the board.</p><p>Click again on a selected square to change your mind.</p>
 		</div>
 		<div>
-			<button id="button" ng-click="submitPositions()" ng-if="positionsArray.length===10 && game.status==='setup'">Click to submit your choices!</button>
+			<button id="button" ng-click="submitPositions()" ng-show="positionsArray.length===10 && game.status==='setup'">Click to submit your choices!</button>
 		</div>
-		<div id="instructions2" ng-show="game.currentPlayer==='person'">
+		<div id="instructions2" ng-show="game.currentPlayer==='person' && game.status==='playing'">
 			<p>Click on one of your opponent's positions to strike!</p>
 		</div>
-		<div id="instructions3" ng-show="waiting1">
-			<p>Attacking target...</p>
+		<div id="instructions3" ng-show="game.currentPlayer==='CPU' && game.status==='playing'">
+			<button ng-click="allowAttack()">Click here to receive random attack</button>
 		</div>
-		<div id="instructions4" ng-show="waiting2">
-			<p>Bracing for response attack...</p>
-		</div>
-		<div id="instructions5" ng-if="winner">
+		<div id="instructions5" ng-show="game.status==='player won'">
 			<p>You win!</p>
 		</div>
-		<div id="instructions6" ng-if="loser">
+		<div id="instructions6" ng-show="game.status==='CPU won'">
 			<p>You lose.</p>
 		</div>
+		<button ng-show="game.status==='CPU won' || game.status==='player won' " ng-click="deleteGame()">Click here to delete game and restart.</button>
 	</div>
 	<gameboard></gameboard>
 </section>
