@@ -1,5 +1,4 @@
 app.controller('HomeController', function($scope, boardFactory) {
-	//$scope.game;
 	
 	$scope.createBoards = function() {
 		boardFactory.createGame()
