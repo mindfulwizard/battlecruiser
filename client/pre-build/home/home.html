@@ -1,25 +1,17 @@
 <section id="home">
-	<div id="instructionbox">
-		<button ng-click="createBoards()" ng-show="!game">Click to start new game</button>
-		<div id="instructions1" ng-show="positionsArray.length<10 && game">
-			<p>Please choose {{10 - (positionsArray.length)}} positions on the board.</p><p>Click again on a selected square to change your mind.</p>
+	<div class="container" id="inst">
+		<div id="buttonbox">
+			<button class="btn btn-default btn-lg" ng-click="createBoards()" ng-show="!game">Click to start new game!</button>
+			<button class="btn btn-default btn-lg" id="button" ng-click="submitPositions()" ng-show="positionsArray.length===10 && game.status==='setup'">Click to submit your ship positions!</button>
+			<button class="btn btn-default btn-lg" id="instructions3" ng-show="game.currentPlayer==='CPU' && game.status==='playing'" ng-click="allowAttack()">Click when ready to receive random attack...</button>
+			<button class="btn btn-default btn-lg" ng-show="game.status==='CPU won' || game.status==='player won' " ng-click="deleteGame()">Click here to delete game and restart</button>
 		</div>
-		<div>
-			<button id="button" ng-click="submitPositions()" ng-show="positionsArray.length===10 && game.status==='setup'">Click to submit your choices!</button>
+		<div id="instructionbox">
+			<h3><span ng-show="positionsArray.length<10 && game">Place {{10 - (positionsArray.length)}} ships on the board to the left. Click again on a selected square to remove your selection.</span></h3>
+			<h3><span ng-show="game.currentPlayer==='person' && game.status==='playing'">Attack one of your opponent's positions on the board to the right!</span></h3>
+			<h3><span ng-show="game.status==='player won'">You win!</span></h3>
+			<h3><span ng-show="game.status==='CPU won'">You lose.</span></h3>
 		</div>
-		<div id="instructions2" ng-show="game.currentPlayer==='person' && game.status==='playing'">
-			<p>Click on one of your opponent's positions to strike!</p>
-		</div>
-		<div id="instructions3" ng-show="game.currentPlayer==='CPU' && game.status==='playing'">
-			<button ng-click="allowAttack()">Click here to receive random attack</button>
-		</div>
-		<div id="instructions5" ng-show="game.status==='player won'">
-			<p>You win!</p>
-		</div>
-		<div id="instructions6" ng-show="game.status==='CPU won'">
-			<p>You lose.</p>
-		</div>
-		<button ng-show="game.status==='CPU won' || game.status==='player won' " ng-click="deleteGame()">Click here to delete game and restart.</button>
 	</div>
 	<gameboard></gameboard>
 </section>

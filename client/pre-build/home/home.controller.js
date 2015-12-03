@@ -1,10 +1,26 @@
 app.controller('HomeController', function($scope, boardFactory) {
-	
 	$scope.createBoards = function() {
 		boardFactory.createGame()
 		.then(function(response) {
 			$scope.game = response.game;
 			$scope.positionsArray = [];
+		})
+	}
+
+	$scope.submitPositions = function() {
+		boardFactory.playerSetup($scope.positionsArray)
+		.then(function(response) {
+			$scope.positionsArray = null;
+			$scope.game = response.game;
+		})
+	}
+
+	$scope.deleteGame = function() {
+		boardFactory.deleteGame()
+		.then(function(response) {
+			$scope.game = response.game;
+			$scope.createBoards();
+			//$scope.positionsArray = [];
 		})
 	}
 
@@ -46,14 +62,6 @@ app.controller('HomeController', function($scope, boardFactory) {
 		boardFactory.getCpuMove()
 		.then(function(response) {
 			$scope.game = response.game;
-		})
-	}
-
-	$scope.deleteGame = function() {
-		boardFactory.deleteGame()
-		.then(function(response) {
-			$scope.game = response.game;
-			$scope.positionsArray = [];
 		})
 	}
 });

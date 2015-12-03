@@ -15,7 +15,7 @@
         <tr ng-repeat="cols in game.cpuArr track by $index">
             <td ng-repeat="col in cols track by $index" ng-click="attackCPU(col, $parent.$index, $index)" ng-class="{hit:col===2, miss:col===3}">
             	<div class="content">
-            		<div class="content attacktext" ng-show="game.currentPlayer==='person' && col===0">Attack!
+            		<div class="content attacktext" ng-show="game.currentPlayer==='person' && (col===0 || col===1)">Attack!
             		</div>
             	</div>
             </td>
