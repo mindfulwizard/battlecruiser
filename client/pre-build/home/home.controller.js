@@ -1,4 +1,11 @@
 app.controller('HomeController', function($scope, boardFactory) {
+	//positionselected
+	//put constants on scope
+
+	$scope.finderFunc = function(array, x, y) {
+		return _.findIndex(array, {'x': x, 'y': y});
+	}
+
 	$scope.createBoards = function() {
 		boardFactory.createGame()
 		.then(function(response) {
@@ -18,20 +25,16 @@ app.controller('HomeController', function($scope, boardFactory) {
 	$scope.deleteGame = function() {
 		boardFactory.deleteGame()
 		.then(function(response) {
-			$scope.game = response.game;
+			$scope.game = null;
+			//$scope.game = response.game;
 			$scope.createBoards();
-			//$scope.positionsArray = [];
 		})
-	}
-
-	$scope.finderFunc = function(array, x, y) {
-		return _.findIndex(array, {'x': x, 'y': y});
 	}
 
 	$scope.selectPosition = function(x, y) {
 		var index = $scope.finderFunc($scope.positionsArray, x, y);
 		//undo position selection if previously selected
-		if(index>-1 && $scope.game.status === 'setup') {
+		if(index >- 1 && $scope.game.status === 'setup') {
 			return $scope.positionsArray.splice(index, 1);
 		}
 

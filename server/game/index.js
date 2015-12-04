@@ -6,10 +6,11 @@ function GameState() {
 	this.playerArr = this.generateBoard();
 	this.cpuArr = this.generateBoard();
 	this.status = 'setup';
-};
+}
 
 _.extend(GameState.prototype, {
 	generateBoard: function() {
+		//makes 2d array of 0, flexible grid size, get rid of hardc
 		return _.range(5).map(function () {
         	return _.range(0, 5, 0);
     	});
@@ -24,6 +25,7 @@ _.extend(GameState.prototype, {
 	generateCpuShips: function() {
 		var self = this;
 		_.times(10, function randomPosition(){
+			//refactor
 			var x = _.random(0, 4);
 			var y = _.random(0, 4);
 			if(self.cpuArr[x][y] === SHIP) {
