@@ -1,6 +1,12 @@
+	@media (min-width: 1000px){
+		#board {
+			width: 970px !important;
+		} 
+	}	
+
 	#board {
 		overflow: hidden;
-		width: 90%;
+		width: 89%;
 		position: fixed;
 		top: 55%;
 		left: 50%;
@@ -11,6 +17,7 @@
 	table {
 		width: 45%;
 		border-collapse: collapse;
+		background-color: rgba(119, 136, 153, 0.35);
 	}
 
 	#player {
@@ -24,19 +31,16 @@
 	}
 
 	.deploytext{
-		background: #a8a8a8;
 		background-size: cover;
 		opacity: 0;
 	}
 
 	.undeploytext{
-		background: #545454;
 		background-size: cover;
 		opacity: 0;
 	}
 
 	.attacktext{
-		background: #a8a8a8;
 		background-size: cover;
 		opacity: 0;
 	}
@@ -48,42 +52,45 @@
 	    background-position: center center;
 	    background-repeat: no-repeat;
 	    background-size: cover;
+
+		.content {
+		    position: absolute;
+		    top: 0;
+		    bottom: 0;
+		    left: 0;
+		    right: 0;
+		}
 	}
 
-	td:hover .deploytext{
-		cursor: pointer;
-		opacity: 0.6;
-		text-align: center;
-		color: #000000;
-	}
-
-
-	td:hover .undeploytext{
-		cursor: pointer;
-		opacity: 0.6;
-		text-align: center;
-		color: #FFFFFF;
-	}
-
-	td:hover .attacktext{
-		cursor: pointer;
-		opacity: 0.6;
-		text-align: center;
-		color: #CD0000;
-	}
-
-	td:after{
+	td:after {
 	    content: '';
 	    display: block;
 	    margin-top: 100%;
 	}
 
-	td .content {
-	    position: absolute;
-	    top: 0;
-	    bottom: 0;
-	    left: 0;
-	    right: 0;
+	td:hover {
+
+		.deploytext{
+			cursor: pointer;
+			opacity: 0.6;
+			text-align: center;
+			color: #000000;
+		}
+
+
+		.undeploytext{
+			cursor: pointer;
+			opacity: 0.6;
+			text-align: center;
+			color: #000000;
+		}
+
+		.attacktext{
+			cursor: pointer;
+			opacity: 0.6;
+			text-align: center;
+			color: #CD0000;
+		}
 	}
 
 	.placed {
