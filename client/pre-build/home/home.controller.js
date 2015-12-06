@@ -4,6 +4,14 @@ app.controller('HomeController', function($scope, boardFactory) {
 	$scope.HIT = 2;
 	$scope.MISS = 3;
 
+	function isInArray(array, x, y) {
+		return _.findIndex(array, {'x': x, 'y': y});
+	}
+
+	$scope.positionSelected = function() {
+		return isInArray($scope.positionsArray, this.$parent.$index, this.$index) > -1;
+	}
+
 	$scope.createBoards = function() {
 		boardFactory.createGame()
 		.then(function(response) {
@@ -23,19 +31,15 @@ app.controller('HomeController', function($scope, boardFactory) {
 	$scope.deleteGame = function() {
 		boardFactory.deleteGame()
 		.then(function(response) {
-			$scope.game = response.game;
+			$scope.game = null;
 			$scope.createBoards();
 		})
 	}
 
-	$scope.finderFunc = function(array, x, y) {
-		return _.findIndex(array, {'x': x, 'y': y});
-	}
-
 	$scope.selectPosition = function(x, y) {
-		var index = $scope.finderFunc($scope.positionsArray, x, y);
+		var index = isInArray($scope.positionsArray, x, y);
 		//undo position selection if previously selected
-		if(index>-1 && $scope.game.status === 'setup') {
+		if(index > -1 && $scope.game.status === 'setup') {
 			return $scope.positionsArray.splice(index, 1);
 		}
 
@@ -54,7 +58,7 @@ app.controller('HomeController', function($scope, boardFactory) {
 
 	$scope.attackCPU = function(status, x, y) {
 		//prevent selecting previously attacked positions
-		if($scope.game.currentPlayer === 'person' && (status === 0 || status === 1)){
+		if($scope.game.status === 'playing' && $scope.game.currentPlayer === 'person' && (status === $scope.EMPTY || status === $scope.SHIP)){
 			boardFactory.playerMove({'x': x, 'y': y})
 			.then(function(response) {
 				$scope.game = response.game;

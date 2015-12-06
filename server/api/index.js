@@ -5,6 +5,7 @@ module.exports = router;
 var game;
 
 router.post('/game', function(req, res) {
+	//req.session.game = new GameState();
 	game = new GameState();
 	res.json({game:game});
 });
@@ -26,5 +27,5 @@ router.get('/game/cpu', function(req, res) {
 
 router.delete('/game', function(req, res) {
 	game = null;
-	res.json({game:game});
+	res.sendStatus(204);
 });

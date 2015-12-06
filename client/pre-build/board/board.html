@@ -1,21 +1,21 @@
 <div id="board">
 	<table id="player">
-        <tr ng-repeat="cols in game.playerArr track by $index">
-            <td ng-repeat="col in cols track by $index" ng-click="selectPosition($parent.$index, $index)" ng-class="{hit:col===2, miss:col===3, placed:col===1 || finderFunc(positionsArray, $parent.$index, $index)>-1}">
+        <tr ng-repeat="rows in game.playerArr">
+            <td ng-repeat="cell in rows track by $index" ng-click="selectPosition($parent.$index, $index)" ng-class="{hit:cell === HIT, miss:cell === MISS, placed:cell === SHIP || positionSelected()}">
             	<div class="content">
-            		<div class="content deploytext" ng-show="positionsArray.length<10 && finderFunc(positionsArray, $parent.$index, $index)===-1">Deploy here!
+            		<div class="content deploytext" ng-show="positionsArray.length < 10 && !positionSelected()">Deploy here!
             		</div>
-            		<div class="content undeploytext" ng-show="game.status==='setup' && finderFunc(positionsArray, $parent.$index, $index)>-1">Undo deploy!
+            		<div class="content undeploytext" ng-show="game.status === 'setup' && positionSelected()">Undo deploy!
             		</div>
             	</div>
             </td>
         </tr>
 	</table>
 	<table id="cpu">
-        <tr ng-repeat="cols in game.cpuArr track by $index">
-            <td ng-repeat="col in cols track by $index" ng-click="attackCPU(col, $parent.$index, $index)" ng-class="{hit:col===2, miss:col===3}">
+        <tr ng-repeat="rows in game.cpuArr">
+            <td ng-repeat="cell in rows track by $index" ng-click="attackCPU(cell, $parent.$index, $index)" ng-class="{hit:cell === HIT, miss:cell === MISS}">
             	<div class="content">
-            		<div class="content attacktext" ng-show="game.currentPlayer==='person' && (col===0 || col===1)">Attack!
+            		<div class="content attacktext" ng-show="game.status === 'playing' && game.currentPlayer==='person' && (cell === EMPTY || cell === SHIP)">Attack!
             		</div>
             	</div>
             </td>
