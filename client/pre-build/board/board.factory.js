@@ -7,19 +7,19 @@ app.factory('boardFactory', function($http){
 			});
 		},
 		playerSetup: function(positionsArray) {
-			return $http.put('/api/setup', {positionsArray: positionsArray})
+			return $http.put('/api/game/setup', {positionsArray: positionsArray})
 			.then(function(res) {
 				return res.data;
 			});
 		},
 		playerMove: function(position) {
-			return $http.put('/api/player', {position: position})
+			return $http.put('/api/game/player', {position: position})
 			.then(function(res) {
 				return res.data;
 			});
 		},
 		getCpuMove: function() {
-			return $http.get('/api/cpu')
+			return $http.get('/api/game/cpu')
 			.then(function(res) {
 				return res.data;
 			});

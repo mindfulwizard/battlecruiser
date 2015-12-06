@@ -1,4 +1,9 @@
 app.controller('HomeController', function($scope, boardFactory) {
+	$scope.EMPTY = 0;
+	$scope.SHIP = 1;
+	$scope.HIT = 2;
+	$scope.MISS = 3;
+
 	$scope.createBoards = function() {
 		boardFactory.createGame()
 		.then(function(response) {
@@ -20,7 +25,6 @@ app.controller('HomeController', function($scope, boardFactory) {
 		.then(function(response) {
 			$scope.game = response.game;
 			$scope.createBoards();
-			//$scope.positionsArray = [];
 		})
 	}
 

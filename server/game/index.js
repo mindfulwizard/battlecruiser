@@ -8,6 +8,18 @@ function GameState() {
 	this.status = 'setup';
 };
 
+function getValidRandomCell (board, invalidCellTypes) {
+	var x = _.random(0, 4);
+	var y = _.random(0, 4);
+	var cellIsValid = invalidCellTypes.every(function(invalidType) {
+		return board[x][y] !== invalidType;
+	});
+	if (!cellIsValid) {
+		return getValidRandomCell(board, invalidCellTypes);
+	}
+	return {x: x, y: y};
+}
+
 _.extend(GameState.prototype, {
 	generateBoard: function() {
 		return _.range(5).map(function () {
@@ -23,13 +35,9 @@ _.extend(GameState.prototype, {
 	},
 	generateCpuShips: function() {
 		var self = this;
-		_.times(10, function randomPosition(){
-			var x = _.random(0, 4);
-			var y = _.random(0, 4);
-			if(self.cpuArr[x][y] === SHIP) {
-				return randomPosition();
-			}
-			self.cpuArr[x][y] = SHIP;
+		_.times(10, function () {
+			var coords = getValidRandomCell(self.cpuArr, [SHIP]);
+			self.cpuArr[coords.x][coords.y] = SHIP;
 		});
 	},
 	startGame: function() {
@@ -44,20 +52,11 @@ _.extend(GameState.prototype, {
 			array[position.x][position.y] = HIT;
 		}
 	},
-	checkWin: function(array) {
-		//refactor?
-		var counter = 0;
-		_.forEach(array, function(innerArray) {
-			_.forEach(innerArray, function(element) {
-				if(element === HIT) {
-					counter++;
-				}
-			})
-		});
-		if(counter === 10) {
-			return true;
-		}
-		return false;
+	checkWin: function(board) {
+		var hits = _.flatten(board).reduce(function(previousValue, currentCell) {
+			return previousValue + (currentCell === HIT ? 1 : 0);
+		}, 0)
+		return hits === 10;
 	},
 	playerMove: function(position) {
 		this.attack(this.cpuArr, position);
@@ -68,16 +67,7 @@ _.extend(GameState.prototype, {
 		this.currentPlayer = 'CPU';
 	},
 	cpuMove: function() {
-		var self = this;
-		function randomPosition() {
-			var x = _.random(0, 4);
-			var y = _.random(0, 4);
-			if(self.playerArr[x][y] === HIT || self.playerArr[x][y] === MISS) {
-				return randomPosition();
-			}
-			return {x:x, y:y};
-		}
-		this.attack(this.playerArr, randomPosition());
+		this.attack(this.playerArr, getValidRandomCell(this.playerArr, [HIT, MISS]));
 		if(this.checkWin(this.playerArr)) {
 			this.status = 'CPU won';
 			this.currentPlayer = null;

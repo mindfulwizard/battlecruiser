@@ -59,7 +59,7 @@ app.use(function(req, res, next) {
 
 //// Server issues
 app.use(function(err, req, res, next) {
-  res.sendStatus(err.status || 500);
+  res.status(err.status || 500).send(err.message);
 
 });
 
