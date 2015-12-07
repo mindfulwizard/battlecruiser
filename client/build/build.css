@@ -1,0 +1,106 @@
+* {
+  box-sizing: border-box; }
+
+body {
+  background: url("ocean2.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+
+#inst {
+  width: 90%;
+  padding-top: 1.5%;
+  position: relative; }
+
+#buttonbox {
+  display: block;
+  text-align: center; }
+
+#instructionbox {
+  display: block;
+  text-align: center; }
+
+@media (min-width: 1000px) {
+  #board {
+    width: 970px !important; } }
+
+#board {
+  overflow: hidden;
+  width: 89%;
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-bottom: 5%; }
+
+table {
+  width: 45%;
+  border-collapse: collapse;
+  background-color: rgba(119, 136, 153, 0.35); }
+
+#player {
+  width: 45%;
+  float: left; }
+
+#cpu {
+  width: 45%;
+  float: right; }
+
+.deploytext {
+  background-size: cover;
+  opacity: 0; }
+
+.undeploytext {
+  background-size: cover;
+  opacity: 0; }
+
+.attacktext {
+  background-size: cover;
+  opacity: 0; }
+
+td {
+  border: 1px solid black;
+  width: 7%;
+  position: relative;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover; }
+  td .content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0; }
+
+td:after {
+  content: '';
+  display: block;
+  margin-top: 100%; }
+
+td:hover .deploytext {
+  cursor: pointer;
+  opacity: 0.6;
+  text-align: center;
+  color: #000000; }
+
+td:hover .undeploytext {
+  cursor: pointer;
+  opacity: 0.6;
+  text-align: center;
+  color: #000000; }
+
+td:hover .attacktext {
+  cursor: pointer;
+  opacity: 0.6;
+  text-align: center;
+  color: #CD0000; }
+
+.placed {
+  background-image: url("ship.jpg"); }
+
+.hit {
+  background-image: url("burning.jpg"); }
+
+.miss {
+  background-image: url("splash.jpg"); }

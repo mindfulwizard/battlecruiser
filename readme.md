@@ -8,8 +8,8 @@ The API contains endpoints that:
 - Accepts coordinates for the player’s next move.
 - Returns the coordinates for the CPU’s next move.
 
-I built this with lodash, AngularJS, Express, and Node.js, using the lightweight Meaniscule MEAN stack app generator: https://github.com/meaniscule/meaniscule. 
+I built this with AngularJS, Express, and Node.js, using the lightweight Meaniscule MEAN stack app generator: https://github.com/meaniscule/meaniscule. 
 
-My personal code mostly lives in pre-build/board, pre-build/home, server/api, and server/game.
+My personal code mostly lives in pre-build/board, pre-build/home, server/api, and server/game. The front end features a responsive design, while the back end makes much use of the lodash utility library.
 
 A deployed version can be found here:
