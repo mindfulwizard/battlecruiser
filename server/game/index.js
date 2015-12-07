@@ -6,7 +6,7 @@ function GameState() {
 	this.playerArr = this.generateBoard();
 	this.cpuArr = this.generateBoard();
 	this.status = 'setup';
-};
+}
 
 function getValidRandomCell (board, invalidCellTypes) {
 	var x = _.random(0, 4);
