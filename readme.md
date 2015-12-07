@@ -12,4 +12,4 @@ I built this with AngularJS, Express, and Node.js, using the lightweight Meanisc
 
 My personal code mostly lives in pre-build/board, pre-build/home, server/api, and server/game. The front end features a responsive design, while the back end makes much use of the lodash utility library.
 
-A deployed version can be found here:
+A deployed version can be found here: https://fast-anchorage-2084.herokuapp.com/
