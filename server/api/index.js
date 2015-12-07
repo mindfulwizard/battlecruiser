@@ -2,30 +2,29 @@ var GameState = require('../game');
 var router = require('express').Router();
 module.exports = router;
 
-var game;
+var allGames = {};
 
 router.post('/game', function(req, res) {
-	//req.session.game = new GameState();
-	game = new GameState();
-	res.json({game:game});
+	allGames[req.sessionID] = new GameState();
+	res.json({game:allGames[req.sessionID]});
 });
 
 router.put('/game/setup', function(req, res) {
-	game.addPlayerPositions(req.body.positionsArray).startGame();
-	res.json({game:game});
+	allGames[req.sessionID].addPlayerPositions(req.body.positionsArray).startGame();
+	res.json({game:allGames[req.sessionID]});
 });
 
 router.put('/game/player', function(req, res) {
-	game.playerMove(req.body.position);
-	res.json({game:game});
+	allGames[req.sessionID].playerMove(req.body.position);
+	res.json({game:allGames[req.sessionID]});
 });
 
 router.get('/game/cpu', function(req, res) {
-	game.cpuMove();
-	res.json({game:game});
+	allGames[req.sessionID].cpuMove();
+	res.json({game:allGames[req.sessionID]});
 });
 
 router.delete('/game', function(req, res) {
-	game = null;
+	allGames[req.sessionID] = null;
 	res.sendStatus(204);
 });

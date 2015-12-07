@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var session = require('express-session');
 var path = require('path');
 var logger = require('morgan');
 var chalk = require('chalk');
@@ -40,8 +41,14 @@ app.use(function (req, res, next) {
 
 });
 
+//sessions
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
+
 //routes
-//require('./api/configure')(app);
 app.use('/api', require('./api'));
 
 app.get('/*', function(req, res, next) {
@@ -49,7 +56,7 @@ app.get('/*', function(req, res, next) {
 });
 
 
-// Errors
+// Errors - choosing to send back true errors
 //// Not found
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

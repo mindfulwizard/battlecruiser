@@ -22,6 +22,7 @@ function getValidRandomCell (board, invalidCellTypes) {
 
 _.extend(GameState.prototype, {
 	generateBoard: function() {
+		//creates a 5x5 two dimensional array filled with '0's
 		return _.range(5).map(function () {
         	return _.range(0, 5, 0);
     	});
@@ -63,16 +64,18 @@ _.extend(GameState.prototype, {
 		if(this.checkWin(this.cpuArr)) {
 			this.status = 'player won';
 			this.currentPlayer = null;
-		};
-		this.currentPlayer = 'CPU';
+		} else {
+			this.currentPlayer = 'CPU';
+		}
 	},
 	cpuMove: function() {
 		this.attack(this.playerArr, getValidRandomCell(this.playerArr, [HIT, MISS]));
 		if(this.checkWin(this.playerArr)) {
 			this.status = 'CPU won';
 			this.currentPlayer = null;
-		};
-		this.currentPlayer = 'person';
+		} else {
+			this.currentPlayer = 'person';
+		}
 	}
 });
 module.exports = GameState;
