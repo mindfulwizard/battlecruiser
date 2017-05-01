@@ -22,9 +22,9 @@ function getValidRandomCell (board, invalidCellTypes) {
 
 _.extend(GameState.prototype, {
 	generateBoard: function() {
-		//creates a 5x5 two dimensional array filled with '0's
+		//creates a 5x5 two dimensional array filled with 'EMPTY'
 		return _.range(5).map(function () {
-        	return _.range(0, 5, 0);
+        	return _.fill(Array(5), EMPTY);
     	});
 	},
 	addPlayerPositions: function(positionsArray) {
