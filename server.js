@@ -6,7 +6,7 @@ var Promise = require('bluebird');
 
 var port = (process.env.PORT || 80);
 // Start the server
-var app = require('./app');
+var app = require('./server/app');
 
 (new Promise(function(resolve, reject) {
   app.listen(port, function() {

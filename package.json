@@ -2,10 +2,10 @@
   "name": "Battlecruiser",
   "version": "1.0.0",
   "description": "A clone of the board game Battleship",
-  "main": "start.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Tests should be run from `gulp`. Please see `gulpfile.js` for available testing tasks.\" && exit 1",
-    "start": "nodemon --watch server server/start.js"
+    "start": "nodemon --watch server server.js"
   },
   "engines": {
     "node": "5.0.0"
