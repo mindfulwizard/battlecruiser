@@ -4,7 +4,7 @@ require('babel/register');
 var chalk = require('chalk');
 var Promise = require('bluebird');
 
-var port = (process.env.PORT || 1337);
+var port = (process.env.PORT || 443);
 // Start the server
 var app = require('./server/app');
 
