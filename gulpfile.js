@@ -18,7 +18,7 @@ var babel = require('gulp-babel');
 // Default
 gulp.task('default', function() {
     // livereload.listen();
-    gulp.start('build');
+    //gulp.start('build');
 
     // gulp.watch(['client/pre-build/app.js', 'client/pre-build/**/*.js'], function() {
     //     runSeq('buildJS');
